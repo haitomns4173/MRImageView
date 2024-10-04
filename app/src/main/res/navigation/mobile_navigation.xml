@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.haitomns.mrimageviewer.ui.home.HomeFragment"
+        android:label="@string/suture_planet"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.haitomns.mrimageviewer.ui.gallery.GalleryFragment"
+        android:label="@string/batna"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.haitomns.mrimageviewer.ui.slideshow.SlideshowFragment"
+        android:label="@string/puristo"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_scan"
+        android:name="com.haitomns.mrimageviewer.ui.scan.ScanFragment"
+        android:label="@string/imdsl"
+        tools:layout="@layout/fragment_scan" />
+</navigation>
