@@ -19,14 +19,20 @@ public class FullscreenImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen_image);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         PhotoView photoView = findViewById(R.id.fullscreenImageView);
 
         String imageName = getIntent().getStringExtra("imageName");
-        String folderPath = getIntent().getStringExtra("folderPath");  // Added folder path
+        String folderPath = getIntent().getStringExtra("folderPath");
+
+        if (imageName != null) {
+            getSupportActionBar().setTitle(imageName.replace(".jpg", ""));
+        }
 
         try {
             AssetManager assetManager = getAssets();
-            InputStream is = assetManager.open(folderPath + "/" + imageName);  // Use folder path dynamically
+            InputStream is = assetManager.open(folderPath + "/" + imageName);
             Bitmap bitmap = BitmapFactory.decodeStream(is);
             photoView.setImageBitmap(bitmap);
         } catch (IOException e) {
