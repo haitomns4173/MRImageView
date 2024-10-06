@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.haitomns.mrimageviewer.FullscreenImageActivity;
 import com.haitomns.mrimageviewer.ImageAdapter;
 import com.haitomns.mrimageviewer.PDFViewerActivity;
 import com.haitomns.mrimageviewer.databinding.FragmentHomeBinding;
@@ -30,25 +29,29 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
         View root = binding.getRoot();
-        loadImagesFromAssets(requireContext());
+
+        String folderPath = "suturePlanetImages";
+        loadImagesFromAssets(requireContext(), folderPath);
+
         RecyclerView recyclerView = binding.recyclerView;
         int orientation = getResources().getConfiguration().orientation;
         int spanCount = (orientation == Configuration.ORIENTATION_LANDSCAPE) ? 4 : 2;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
 
-        ImageAdapter imageAdapter = new ImageAdapter(imageNames, requireContext(), this::onImageClick);
+        ImageAdapter imageAdapter = new ImageAdapter(imageNames, requireContext(), folderPath, this::onImageClick);
         recyclerView.setAdapter(imageAdapter);
 
         return root;
     }
 
-    private void loadImagesFromAssets(Context context) {
+    private void loadImagesFromAssets(Context context, String folderPath) {
         imageNames.clear();
 
         AssetManager assetManager = context.getAssets();
         try {
-            String[] files = assetManager.list("suturePlanetImages");
+            String[] files = assetManager.list(folderPath);
             if (files != null) {
                 for (String filename : files) {
                     imageNames.add(filename);
@@ -60,13 +63,13 @@ public class HomeFragment extends Fragment {
     }
 
     private void onImageClick(String imageName) {
-        String pdfName = imageName.replace(".jpg", ".pdf");
+        String pdfName = imageName.replace(".jpg", ".pdf"); // Replace image extension with pdf
 
         Intent intent = new Intent(getActivity(), PDFViewerActivity.class);
         intent.putExtra("pdfName", pdfName);
+        intent.putExtra("folderPath", "suturePlanetPdf");
         startActivity(intent);
     }
-
 
     @Override
     public void onDestroyView() {

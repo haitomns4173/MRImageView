@@ -1,6 +1,7 @@
 package com.haitomns.mrimageviewer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -21,15 +22,17 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     private final List<String> imageNames;
     private final Context context;
     private final OnImageClickListener listener;
+    private final String folderPath;
 
     public interface OnImageClickListener {
         void onImageClick(String imageName);
     }
 
-    public ImageAdapter(List<String> imageNames, Context context, OnImageClickListener listener) {
+    public ImageAdapter(List<String> imageNames, Context context, String folderPath, OnImageClickListener listener) {
         this.imageNames = imageNames;
         this.context = context;
         this.listener = listener;
+        this.folderPath = folderPath;
     }
 
     @NonNull
@@ -45,9 +48,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         String imageLabel = imageName.substring(0, imageName.lastIndexOf('.'));
         holder.textView.setText(imageLabel);
 
-        // Load image from assets
+        // Load image from the specified folder
         try {
-            InputStream is = context.getAssets().open("suturePlanetImages/" + imageName);
+            InputStream is = context.getAssets().open(folderPath + "/" + imageName);
             Bitmap bitmap = BitmapFactory.decodeStream(is);
             holder.imageView.setImageBitmap(bitmap);
         } catch (IOException e) {

@@ -19,13 +19,13 @@ public class PDFViewerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String pdfName = intent.getStringExtra("pdfName");
+        String folderPath = intent.getStringExtra("folderPath");
 
         try {
-            // Load the PDF from the assets folder
-            InputStream inputStream = getAssets().open("suturePlanetPdf/" + pdfName);
+            InputStream inputStream = getAssets().open( folderPath + "/" + pdfName);
             pdfView.fromStream(inputStream)
-                    .enableSwipe(true)  // allows users to swipe between pages
-                    .enableDoubletap(true)  // allows zooming with double-tap
+                    .enableSwipe(true)
+                    .enableDoubletap(true)
                     .load();
         } catch (IOException e) {
             e.printStackTrace();

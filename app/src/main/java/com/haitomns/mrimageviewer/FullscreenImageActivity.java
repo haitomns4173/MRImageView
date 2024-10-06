@@ -19,14 +19,14 @@ public class FullscreenImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen_image);
 
-        // Use PhotoView instead of ImageView for zooming capability
         PhotoView photoView = findViewById(R.id.fullscreenImageView);
-        String imageName = getIntent().getStringExtra("imageName");
 
-        // Load the image from assets
+        String imageName = getIntent().getStringExtra("imageName");
+        String folderPath = getIntent().getStringExtra("folderPath");  // Added folder path
+
         try {
             AssetManager assetManager = getAssets();
-            InputStream is = assetManager.open("suturePlanetImages/" + imageName);
+            InputStream is = assetManager.open(folderPath + "/" + imageName);  // Use folder path dynamically
             Bitmap bitmap = BitmapFactory.decodeStream(is);
             photoView.setImageBitmap(bitmap);
         } catch (IOException e) {

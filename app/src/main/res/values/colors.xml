@@ -10,4 +10,21 @@
 
     <color name="colorPrimary">#fcd7df</color>
     <color name="colorSecondary">#3d3485</color>
+    <color name="logoColor">#3bb6fe</color>
+    <color name="colorDefaultText">#000000</color>
+    <!-- Text color when item is selected -->
+    <color name="colorSelectedText">#FFFFFF</color>
+    <!-- Background color for selected item -->
+    <color name="colorSelectedBackground">#FF4081</color> <!-- You can choose any color -->
+
+    <color name="colorPink">#fcd7df</color>
+    <color name="colorPurple">#3d3485</color>
+    <color name="colorBlue">#3bb6fe</color>
+
+    <color name="colorPinkDark">#8c4a5e</color>
+    <color name="colorPurpleDark">#5d5791</color>
+    <color name="colorBlueDark">#276389</color>
+
+    <color name="backgroundLight">#fff0f2</color>
+    <color name="backgroundDark">#261d1f</color>
 </resources>

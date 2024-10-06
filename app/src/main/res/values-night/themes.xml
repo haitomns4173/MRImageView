@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.MRImageViewer" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/colorBlueDark</item>
+        <item name="colorPrimaryVariant">@color/colorBlueDark</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+    <style name="cardBackground">
+        <item name="android:src">@drawable/rectangle_dark</item>
+    </style>
+    <style name="labelColor">
+        <item name="android:textColor">@color/colorPink</item>
+    </style>
+    <style name="menuIconColor">
+        <item name="android:color">@color/white</item>
+    </style>
+    <style name="backgroundColor">
+        <item name="android:background">@color/backgroundDark</item>
     </style>
 </resources>
