@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.haitomns.mrimageviewer.FullscreenImageActivity;
 import com.haitomns.mrimageviewer.ImageAdapter;
 import com.haitomns.mrimageviewer.PDFViewerActivity;
 import com.haitomns.mrimageviewer.databinding.FragmentSlideshowBinding;
@@ -48,25 +49,36 @@ public class SlideshowFragment extends Fragment {
 
     private void loadImagesFromAssets(Context context, String folderPath) {
         imageNames.clear();
-        AssetManager assetManager = context.getAssets();
-        try {
-            String[] files = assetManager.list(folderPath);
-            if (files != null) {
-                for (String filename : files) {
-                    imageNames.add(filename);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        String[] explicitImageNames = {
+                "GYN.jpg",
+                "ORTHO.jpg",
+                "PAEDIATRIC.jpg",
+                "PHYSICIAN.jpg"
+        };
+
+        for (String imageName : explicitImageNames) {
+            imageNames.add(imageName);
         }
     }
 
     private void onImageClick(String imageName) {
-        String pdfName = imageName.replace(".jpg", ".pdf"); // Replace image extension with pdf
+        String[] imageCollectionImages;
 
-        Intent intent = new Intent(getActivity(), PDFViewerActivity.class);
-        intent.putExtra("pdfName", pdfName);
-        intent.putExtra("folderPath", "puristroPdf");
+        if(imageName.equals("GYN.jpg")){
+            imageCollectionImages = new String[]{"GYN_1.jpg", "GYN_2.jpg", "GYN_3.jpg", "GYN_4.jpg", "GYN_5.jpg", "GYN_6.jpg", "GYN_7.jpg"};
+        } else if (imageName.equals("ORTHO.jpg")) {
+            imageCollectionImages = new String[]{"ORTHO_1.jpg", "ORTHO_2.jpg", "ORTHO_3.jpg"};
+        } else if (imageName.equals("PAEDIATRIC.jpg")) {
+            imageCollectionImages = new  String[]{"PAEDIATRIC_1.jpg", "PAEDIATRIC_2.jpg"};
+        } else {
+            imageCollectionImages = new String[]{"PHYSICIAN_1.jpg", "PHYSICIAN_2.jpg", "PHYSICIAN_3.jpg", "PHYSICIAN_4.jpg"};
+        }
+
+        Intent intent = new Intent(getActivity(), FullscreenImageActivity.class);
+        intent.putExtra("imageName", imageName);
+        intent.putExtra("imagesCollection", imageCollectionImages);
+        intent.putExtra("folderPath", "puristroImages");
         startActivity(intent);
     }
 

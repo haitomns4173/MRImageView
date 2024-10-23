@@ -62,8 +62,11 @@ public class GalleryFragment extends Fragment {
     }
 
     private void onImageClick(String imageName) {
+        String[] imageCollectionImages =new String[] {"AZIBIAL.jpg", "BAFTOR.jpg", "RANDIP.jpg", "RARICAP.jpg", "CLARIMYCIN.jpg"};
+
         Intent intent = new Intent(getActivity(), FullscreenImageActivity.class);
         intent.putExtra("imageName", imageName);
+        intent.putExtra("imagesCollection", imageCollectionImages);
         intent.putExtra("folderPath", "bafanaImages");
         startActivity(intent);
     }

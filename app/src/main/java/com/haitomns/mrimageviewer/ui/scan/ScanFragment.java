@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.haitomns.mrimageviewer.FullscreenImageActivity;
 import com.haitomns.mrimageviewer.ImageAdapter;
 import com.haitomns.mrimageviewer.PDFViewerActivity;
 import com.haitomns.mrimageviewer.databinding.FragmentScanBinding;
@@ -50,25 +51,29 @@ public class ScanFragment extends Fragment {
     private void loadImagesFromAssets(Context context, String folderPath) {
         imageNames.clear();
 
-        AssetManager assetManager = context.getAssets();
-        try {
-            String[] files = assetManager.list(folderPath);
-            if (files != null) {
-                for (String filename : files) {
-                    imageNames.add(filename);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        String[] explicitImageNames = {
+                "ENT.jpg",
+                "PORCTOLOGY.jpg"
+        };
+
+        for (String imageName : explicitImageNames) {
+            imageNames.add(imageName);
         }
     }
 
     private void onImageClick(String imageName) {
-        String pdfName = imageName.replace(".jpg", ".pdf"); // Replace image extension with pdf
+        String[] imageCollectionImages;
 
-        Intent intent = new Intent(getActivity(), PDFViewerActivity.class);
-        intent.putExtra("pdfName", pdfName);
-        intent.putExtra("folderPath", "imdslPdf");
+        if(imageName.equals("ENT.jpg")){
+            imageCollectionImages = new String[]{"ENT_1.jpg", "ENT_2.jpg"};
+        } else {
+            imageCollectionImages = new String[]{"PORCTOLOGY_1.jpg", "PORCTOLOGY_2.jpg", "PORCTOLOGY_3.jpg", "PORCTOLOGY_4.jpg"};
+        }
+
+        Intent intent = new Intent(getActivity(), FullscreenImageActivity.class);
+        intent.putExtra("imageName", imageName);
+        intent.putExtra("imagesCollection", imageCollectionImages);
+        intent.putExtra("folderPath", "imdslImages");
         startActivity(intent);
     }
 

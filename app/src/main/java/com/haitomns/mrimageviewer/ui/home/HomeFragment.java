@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.haitomns.mrimageviewer.FullscreenImageActivity;
 import com.haitomns.mrimageviewer.ImageAdapter;
 import com.haitomns.mrimageviewer.PDFViewerActivity;
 import com.haitomns.mrimageviewer.databinding.FragmentHomeBinding;
@@ -49,25 +50,57 @@ public class HomeFragment extends Fragment {
     private void loadImagesFromAssets(Context context, String folderPath) {
         imageNames.clear();
 
-        AssetManager assetManager = context.getAssets();
-        try {
-            String[] files = assetManager.list(folderPath);
-            if (files != null) {
-                for (String filename : files) {
-                    imageNames.add(filename);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        String[] explicitImageNames = {
+                "ABSORBABLE.jpg",
+                "NON-ABSORBABLE.jpg",
+                "NETFIX.jpg",
+                "V-FIX.jpg",
+                "ULTRANET.jpg",
+                "NETPTFE.jpg",
+                "NETPLER.jpg",
+                "C-MESH.jpg"
+        };
+
+        for (String imageName : explicitImageNames) {
+            imageNames.add(imageName);
         }
     }
 
     private void onImageClick(String imageName) {
-        String pdfName = imageName.replace(".jpg", ".pdf"); // Replace image extension with pdf
+        String[] imageCollectionImages;
 
-        Intent intent = new Intent(getActivity(), PDFViewerActivity.class);
-        intent.putExtra("pdfName", pdfName);
-        intent.putExtra("folderPath", "suturePlanetPdf");
+        if(imageName.equals("ABSORBABLE.jpg")){
+            imageCollectionImages = new String[]{"ABSORBABLE.jpg"};
+        }
+        else if(imageName.equals("NON-ABSORBABLE.jpg")){
+            imageCollectionImages = new String[]{"NON-ABSORBABLE.jpg"};
+        }
+        else if(imageName.equals("NETFIX.jpg")){
+            imageCollectionImages = new String[]{"NETFIX.jpg"};
+        }
+        else if(imageName.equals("V-FIX.jpg")){
+            imageCollectionImages = new String[]{"V-FIX.jpg", "V-FIX_1.jpg", "V-FIX_2.jpg"};
+        }
+        else if (imageName.equals("ULTRANET.jpg")) {
+            imageCollectionImages = new String[]{"ULTRANET_1.jpg", "ULTRANET_2.jpg"};
+        }
+        else if(imageName.equals("NETPTFE.jpg")){
+            imageCollectionImages = new String[]{"NETPTFE_1.jpg", "NETPTFE_2.jpg", "NETPTFE_3.jpg", "NETPTFE_4.jpg", "NETPTFE_5.jpg", "NETPTFE_6.jpg", "NETPTFE_7.jpg", "NETPTFE_8.jpg"};
+        }
+        else if(imageName.equals("NETPLER.jpg")){
+            imageCollectionImages = new String[]{"NETPLER_1.jpg", "NETPLER_2.jpg"};
+        }
+        else if (imageName.equals("C-MESH.jpg")) {
+            imageCollectionImages = new String[]{"C-MESH_1.jpg", "C-MESH_2.jpg", "C-MESH_3.jpg", "C-MESH_4.jpg", "C-MESH_5.jpg", "C-MESH_6.jpg", "C-MESH_7.jpg", "C-MESH_8.jpg", "C-MESH_9.jpg", "C-MESH_10.jpg", "C-MESH_11.jpg", "C-MESH_12.jpg", "C-MESH_13.jpg", "C-MESH_14.jpg", "C-MESH_15.jpg", "C-MESH_16.jpg"};
+        }
+        else {
+            imageCollectionImages = new String[]{"ABSORBABLE.jpg", "NON-ABSORBABLE.jpg", "NETFIX.jpg"};
+        }
+
+        Intent intent = new Intent(getActivity(), FullscreenImageActivity.class);
+        intent.putExtra("imageName", imageName);
+        intent.putExtra("imagesCollection", imageCollectionImages);
+        intent.putExtra("folderPath", "suturePlanetImages");
         startActivity(intent);
     }
 
